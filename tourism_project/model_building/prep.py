@@ -1,4 +1,4 @@
-# ========================================== 
+# ==========================================
 # Data Preprocessing Script for Tourism Project
 # ==========================================
 
@@ -32,11 +32,10 @@ for col in categorical_cols:
         df[col].fillna(df[col].mode()[0], inplace=True)
 
 # 5. Clean inconsistent data entries
-df.Gender = df.Gender.replace("Fe male", "Female")
 df['Gender'] = df['Gender'].str.strip().replace({'Fe Male': 'Female', 'Fe male': 'Female'})
 
 # Combine 'Unmarried' with 'Single' for category unification
-df["MaritalStatus"] = df["MaritalStatus"].replace("Unmarried", "Single")
+df["MaritalStatus"] = df["MaritalStatus"].str.strip().replace("Unmarried", "Single")
 
 # 6. Split features (X) and target variable (y)
 X = df.drop(columns=["ProdTaken"])
