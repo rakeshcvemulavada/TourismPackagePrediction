@@ -78,7 +78,7 @@ with mlflow.start_run():
 
     # Generate evaluation metrics using optimized threshold 0.45
     classification_threshold = 0.45
-    
+
     y_pred_train_proba = best_model.predict_proba(Xtrain)[:, 1]
     y_pred_train = (y_pred_train_proba >= classification_threshold).astype(int)
 
@@ -87,7 +87,7 @@ with mlflow.start_run():
 
     train_report = classification_report(ytrain, y_pred_train, output_dict=True)
     test_report = classification_report(ytest, y_pred_test, output_dict=True)
-    
+
     print("\n--- Test Classification Report ---")
     print(classification_report(ytest, y_pred_test))
 
