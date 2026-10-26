@@ -17,6 +17,12 @@ if 'Unnamed: 0' in df.columns or df.columns[0] == '':
 if 'CustomerID' in df.columns:
     df.drop(columns=['CustomerID'], inplace=True)
 
+cat_cols = ['Designation','ProdTaken', 'OwnCar', 'Passport',
+            'CityTier','MaritalStatus',
+            'ProductPitched','Gender','Occupation','TypeofContact'
+            ]
+df[cat_cols] = df[cat_cols].astype('category')
+
 # 4. Handle missing values systematically
 print("\nHandling missing values...")
 # For numerical columns, impute missing entries with the median value
@@ -26,7 +32,7 @@ for col in numerical_cols:
         df[col].fillna(df[col].median(), inplace=True)
 
 # For categorical columns, impute missing entries with the mode (most frequent value)
-categorical_cols = df.select_dtypes(include=['object']).columns
+categorical_cols = df.select_dtypes(exclude=[np.number]).columns
 for col in categorical_cols:
     if df[col].isnull().sum() > 0:
         df[col].fillna(df[col].mode()[0], inplace=True)
